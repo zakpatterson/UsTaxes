@@ -10,6 +10,7 @@ import W2JobInfo from './w2JobInfo'
 import FamilyInfo from './familyInfo'
 import CreatePDF from './createPDF';
 import ResponsiveDrawer from './menu'
+import StartPage from './startPage';
 
 
 const theme = createMuiTheme({
@@ -35,10 +36,14 @@ export default function W2() {
             <ResponsiveDrawer/>
             <Box display="flex" justifyContent="center">
                 <Box display="flex" justifyContent="flex-start">
-                    <h1>Wages (Form W-2)</h1>
+                    {/* <h1>Wages (Form W-2)</h1> */}
+                    <h1></h1>
                 </Box>
             </Box>
             <Switch>
+                <Route path="/" exact>
+                    <StartPage />
+                </Route>
                 <Route path="/w2employerinfo" exact>
                     <W2EmployerInfo />
                 </Route>

@@ -66,11 +66,25 @@ function ResponsiveDrawer(props) {
 
     const drawer = (
         <div>
+            <List>
+                <ListItem 
+                        button 
+                        key='Start Page'
+                        component={NavLink}
+                        exact activeClassName="current"
+                        to="/"
+                        selected={location.pathname === "/"}
+                >
+                    <ListItemText primary='Start' />
+                </ListItem>
+            </List>
+
+            <Divider />
             <h2>
                 Wages
             </h2>
-
             <Divider />
+
             <List>
                 <ListItem 
                     button 
@@ -123,8 +137,11 @@ function ResponsiveDrawer(props) {
                 >
                     <ListItemText primary='Family Information' />
                 </ListItem>
-
-                <Divider />
+            </List>
+            
+            <Divider />
+            
+            <List>
                 <ListItem
                     button
                     key='Submit'
