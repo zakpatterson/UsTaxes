@@ -121,7 +121,7 @@ export default function W2EmployerInfo () {
                             pattern={/^[A-Za-z]+$/i}
                             patternDescription="Input should only include letters"
                             name="employerProvince"
-                            defaultValue={prevFormData.employerProvidence}
+                            defaultValue={prevFormData.employerProvince}
                             errors={errors}
                         />
                         <LabeledDropdown
@@ -146,7 +146,7 @@ export default function W2EmployerInfo () {
 
                 <Box display="flex" justifyContent="flex-start" paddingTop={2} paddingBottom={1}>
                     <Box display="flex" justifyContent="flex-start" paddingRight={2}>
-                        <Button component={Link} variant="contained" color="secondary" >
+                      <Button component={Link} to="/" variant="contained" color="secondary" >
                             Back
                         </Button>
                     </Box>
