@@ -211,8 +211,16 @@ export default class F1040 implements Form {
   )
 
   l11 = (): number | undefined => displayNumber(
-    computeField(this.l9()) - computeField(this.l10c()) - 100 
-  )
+    computeField(this.l9()) - computeField(this.l10c()) - 100
+
+
+
+
+
+
+
+
+                                            )
 
   l12 = (): number | undefined => {
     if (this.scheduleA !== undefined) {
