@@ -1,48 +1,50 @@
 import React, { ReactElement } from 'react'
 import { TextField, Box } from '@material-ui/core'
-import InputMask from 'react-input-mask'
 import { LabeledInputProps } from './types'
+import NumberFormat from 'react-number-format'
+import { InputType } from '../Patterns'
 
 export function LabeledInput (props: LabeledInputProps): ReactElement {
-  const { strongLabel, label, register, error, required = false, patternConfig = {}, name, defaultValue } = props
+  const { strongLabel, label, register, error, required = false, patternConfig = { inputType: InputType.text }, name, defaultValue } = props
+
   //  let helperText: string | undefined
   // fix error where pattern wouldn't match if input wasn't filled out even if required was set to false
   if (!required) {
     patternConfig.regexp = /.?/
   }
 
-  /* default regex pattern is to accept any input. Otherwise, use input pattern */
-  const textField = (
-    <TextField
-      fullWidth={patternConfig.mask === undefined}
-      defaultValue={defaultValue}
-      helperText={error?.message}
-      inputRef={
-        register({
-          required: required ? 'Input is required' : undefined,
-          pattern: {
-            value: patternConfig.regexp ?? (required ? /.+/ : /.*/),
-            message: patternConfig.description ?? (required ? 'Input is required' : '')
-          }
-        })
+  const textFieldProps = {
+    fullWidth: patternConfig.mask === undefined,
+    defaultValue: defaultValue,
+    helperText: error?.message,
+    inputRef: register({
+      required: required ? 'Input is required' : undefined,
+      pattern: {
+        value: patternConfig.regexp ?? (required ? /.+/ : /.*/),
+        message: patternConfig.description ?? (required ? 'Input is required' : '')
       }
-      error={error !== undefined}
-      name={name}
-      variant="filled"
-    />
-  )
+    }
+    ),
+    error: error !== undefined,
+    name,
+    variant: 'filled' as ('filled' | 'standard')
+  }
 
   /* if there is a mask prop, create masked textfield rather than standard */
-  let input = textField
-  if (patternConfig.mask !== undefined) {
+  let input: ReactElement = <TextField {...textFieldProps} />
+
+  if (patternConfig.inputType === InputType.numeric) {
     input = (
-      <InputMask
+      <NumberFormat
         mask={patternConfig.mask}
-        alwaysShowMask={true}
-        defaultValue={defaultValue}
-      >
-        {textField}
-      </InputMask>
+        thousandSeparator={patternConfig.thousandSeparator}
+        prefix={patternConfig.prefix}
+        allowEmptyFormatting={true}
+        format={patternConfig.format}
+        customInput={TextField}
+        isNumericString={true}
+        {...textFieldProps}
+      />
     )
   }
 
